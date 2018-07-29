@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskListMager", "TaskListMager.csproj", "{EDE6D26C-8FAC-45D7-B5F6-DACD0F1D202A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager", "TaskManager.csproj", "{EDE6D26C-8FAC-45D7-B5F6-DACD0F1D202A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +20,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {93B43DCF-3B83-4B83-B619-0D9444F74A25}
+		SolutionGuid = {15CB15D8-9CC7-4E5B-9EED-9F1B6C53611C}
 	EndGlobalSection
 EndGlobal
