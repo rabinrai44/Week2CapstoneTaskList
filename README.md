@@ -1,2 +1,1 @@
-# Week2CapstoneTaskList
-Week 2 Capstone: Task List Project
+# Week2Capstone: Task Management Console Application in C#
