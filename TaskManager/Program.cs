@@ -6,8 +6,25 @@ using System.Threading.Tasks;
 
 namespace TaskManager
 {
+    public class TaskList
+    {
+        public bool Status { get; set; }
+        public string DueDate { get; set; }
+        public string TeamMember { get; set; }
+        public string Description { get; set; }
+
+        public TaskList(bool status, string dueDate, string teamMember, string description)
+        {
+            this.Status = status;
+            this.DueDate = dueDate;
+            this.TeamMember = teamMember;
+            this.Description = description;
+        }
+    }
+
     class Program
     {
+        static List<TaskList> Tasks = new List<TaskList>();
         //CONST VARIABLE
         private const string MENU_COLUM_FORMAT = " {0, 4} - {1, -4}";
         private const string TASK_COLUM_FORMAT = "{0, -12} {1, -12} {2, -12} {3, -12}";
@@ -20,9 +37,11 @@ namespace TaskManager
             //variables 
             int userChoice;
             bool start = true;
+            //welcome header
+            Console.WriteLine(LINE_SHORT + "\n\tWelcome to the Task Manager!\n" + LINE_SHORT + "\n");
             do
             {
-                PrintHeader();
+                MainMenuOption();
 
                 try
                 {
@@ -36,7 +55,7 @@ namespace TaskManager
                             ListTask();
                             break;
                         case 2:
-                            //AddTask();
+                            AddTask();
                             break;
                         case 3:
                             //DeleteTask();
@@ -63,6 +82,73 @@ namespace TaskManager
             Console.ReadKey();
         }
 
+        //Add task
+        private static void AddTask()
+        {
+            TaskList newTask;
+            string newTeamMember, newTaskDueDate, newTaskDescription;
+            Console.WriteLine("\nADD TASK");
+
+            Console.Write("Team Member Name: ");
+            newTeamMember = Console.ReadLine();
+
+            Console.Write("Task Description: ");
+            newTaskDescription = Console.ReadLine();
+
+            Console.Write("Due Date: ");
+            newTaskDueDate = Console.ReadLine();
+
+            //Add New Task to the Tasks array
+            newTask = new TaskList(false, newTaskDueDate, newTeamMember, newTaskDescription);
+            Tasks.Add(newTask);
+
+            Console.WriteLine("Task entered!");
+
+
+        }               
+
+        // List Task
+        private static void ListTask()
+        {
+            Console.WriteLine("\nLIST TASKS");
+            TaskHeaderStyle();
+            SampleTask();
+        }
+
+        //Sample Task list
+        private static void SampleTask()
+        {
+            //Adding task
+            TaskList task;
+            task = new TaskList(false, "07/30/2018", "Rabin", "Create a header method");
+            Tasks.Add(task);
+            task = new TaskList(false, "07/30/2018", "Sean", "Create a method for add task");
+            Tasks.Add(task);
+
+            //storing all task list into the item array
+            foreach (TaskList item in Tasks)
+            {
+                Console.WriteLine(TASK_COLUM_FORMAT, item.Status, item.DueDate, item.TeamMember, item.Description);
+            }
+        }
+
+        private static void TaskHeaderStyle()
+        {
+            Console.WriteLine(LINE_LONG);
+            Console.WriteLine(TASK_COLUM_FORMAT, "Done?", "Due Date", "Team Member", "Description");
+            Console.WriteLine(LINE_LONG);
+        }
+
+        static void MainMenuOption()
+        {
+            Console.Write("\n");
+            Console.WriteLine(MENU_COLUM_FORMAT, 1, "List Tasks");
+            Console.WriteLine(MENU_COLUM_FORMAT, 2, "Add Task");
+            Console.WriteLine(MENU_COLUM_FORMAT, 3, "Delete Task");
+            Console.WriteLine(MENU_COLUM_FORMAT, 4, "Mark Complete");
+            Console.WriteLine(MENU_COLUM_FORMAT, 5, "Quit");            
+        }
+
         private static bool ShouldContinue()
         {
             do
@@ -76,38 +162,6 @@ namespace TaskManager
                     return userResponse == 'y';
 
             } while (true);
-        }
-
-        // List Task
-        private static void ListTask()
-        {
-            Console.WriteLine("\nLIST TASKS");
-            TaskHeaderStyle();
-            SampleTask();
-        }
-
-        //Sample Task list
-        private static void SampleTask()
-        {
-            Console.WriteLine(TASK_COLUM_FORMAT, "True", "07/29/2018", "Rabin", "Create a header method");
-            Console.WriteLine(TASK_COLUM_FORMAT, "False", "07/30/2018", "Sean", "Create a method for add task");
-        }
-
-        private static void TaskHeaderStyle()
-        {
-            Console.WriteLine(LINE_LONG);
-            Console.WriteLine(TASK_COLUM_FORMAT, "Done?", "Due Date", "Team Member", "Description");
-            Console.WriteLine(LINE_LONG);
-        }
-
-        static void PrintHeader()
-        {
-            Console.WriteLine(LINE_SHORT + "\n\tWelcome to the Task Manager!\n" + LINE_SHORT + "\n");
-            Console.WriteLine(MENU_COLUM_FORMAT, 1, "List Tasks");
-            Console.WriteLine(MENU_COLUM_FORMAT, 2, "Add Task");
-            Console.WriteLine(MENU_COLUM_FORMAT, 3, "Delete Task");
-            Console.WriteLine(MENU_COLUM_FORMAT, 4, "Mark Complete");
-            Console.WriteLine(MENU_COLUM_FORMAT, 5, "Quit");            
         }
     }
 }
