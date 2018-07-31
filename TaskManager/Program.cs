@@ -58,11 +58,11 @@ namespace TaskManager
                             AddTask();
                             break;
                         case 3:
-                            //DeleteTask();
+                            DeleteTask();
                             break;
 
                         case 4:
-                            //MarkTaskComplete();
+                            MarkTaskComplete();
                             break;
                         case 5:
                             Console.WriteLine("Have a great day!");
@@ -82,10 +82,45 @@ namespace TaskManager
             Console.ReadKey();
         }
 
-        //Add task
-        private static void AddTask()
+        private static void MarkTaskComplete()
         {
-            TaskList newTask;
+            int markComplete;
+            Console.WriteLine("\nEDIT TASK");
+            Console.WriteLine("Which task do you want to mark as a completed?");
+            markComplete = int.Parse(Console.ReadLine());
+            Console.WriteLine("Are you sure mark as a complete? ");
+            var markYes = char.ToLower(Console.ReadKey().KeyChar);
+
+            if (markYes == 'y')
+            {
+                //Mark as completed in status
+            }
+          
+
+        }
+
+        //Delete task
+        private static void DeleteTask()
+        {
+            Console.WriteLine("\nDELETE TASK");
+            Console.WriteLine($"Which task you want to delete (enter a task number 0- {Tasks.Count})?");
+            int inputRemoveNumber = int.Parse(Console.ReadLine());
+            Console.Write($"Are you sure want to delete task {inputRemoveNumber} (y/n)? ");
+            var deleteYes = Char.ToLower(Console.ReadKey().KeyChar);
+
+            if (deleteYes == 'y')
+            {
+
+                Tasks.Remove(Tasks[inputRemoveNumber]);
+                Console.WriteLine($"{Tasks[inputRemoveNumber]} task has been deleted!");
+            }
+
+        }
+
+        //Add task
+        public static void AddTask()
+        {
+            TaskList task;
             string newTeamMember, newTaskDueDate, newTaskDescription;
             Console.WriteLine("\nADD TASK");
 
@@ -99,8 +134,8 @@ namespace TaskManager
             newTaskDueDate = Console.ReadLine();
 
             //Add New Task to the Tasks array
-            newTask = new TaskList(false, newTaskDueDate, newTeamMember, newTaskDescription);
-            Tasks.Add(newTask);
+            task = new TaskList(false, newTaskDueDate, newTeamMember, newTaskDescription);
+            Tasks.Add(task);
 
             Console.WriteLine("Task entered!");
 
@@ -112,19 +147,26 @@ namespace TaskManager
         {
             Console.WriteLine("\nLIST TASKS");
             TaskHeaderStyle();
-            SampleTask();
+            ShowTaskList();            
+        }
+
+        public static void ShowTaskList()
+        {
+            foreach(TaskList task in Tasks)
+            {
+                Console.WriteLine(TASK_COLUM_FORMAT, task.Status, task.DueDate, task.TeamMember, task.Description);
+            }
         }
 
         //Sample Task list
-        private static void SampleTask()
+        public static void SampleTask()
         {
             //Adding task
-            TaskList task;
-            task = new TaskList(false, "07/30/2018", "Rabin", "Create a header method");
-            Tasks.Add(task);
-            task = new TaskList(false, "07/30/2018", "Sean", "Create a method for add task");
-            Tasks.Add(task);
-
+            TaskList Task;
+            Task = new TaskList(false, "07/30/2018", "Rabin", "Create a header method");
+            Tasks.Add(Task);
+            Task = new TaskList(false, "07/30/2018", "Sean", "Create a method for add task");
+            Tasks.Add(Task);
             //storing all task list into the item array
             foreach (TaskList item in Tasks)
             {
